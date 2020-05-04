@@ -46,8 +46,6 @@ def drawer():
     if request.method == 'POST':
         data = request.values.to_dict()
         image_str = data.get('imgBase64', None)
-        filename = data.get('filename', None)
-        file_id = data.get('file_id', None)
         chat_id = data.get('chat_id', None)
         message_id = data.get('message_id', None)
         submission_id = data.get('submission_id', None)
