@@ -2,6 +2,8 @@ var mousePressed = false;
 var lastX, lastY;
 var canvas;
 var ctx;
+var color = 'red';
+var width = 3;
 
 function InitThis() {
     canvas = document.getElementById('myCanvas');
@@ -25,13 +27,26 @@ function InitThis() {
     $('#myCanvas').mouseleave(function (e) {
         mousePressed = false;
     });
+
+    $('.dot').on('click', function(e) {
+        $("button[name=" + color + "]" ).css({'width': String(30 + width) + 'px', 'height': String(30 + width) + 'px'});
+        $("button[name=" + e.target.name + "]" ).css({'width': String(45 + width) + 'px', 'height': String(45 + width) + 'px'});
+        color = e.target.name;
+    });
 }
+
+function onSlide(value) {
+    width = value;
+    $('.dot').css({'width': String(30 + value) + 'px', 'height': String(30 + value) + 'px'});
+    $("button[name=" + color + "]" ).css({'width': String(45 + value) + 'px', 'height': String(45 + value) + 'px'});
+}
+
 
 function Draw(x, y, isDown) {
     if (isDown) {
         ctx.beginPath();
-        ctx.strokeStyle = $('#selColor').val();
-        ctx.lineWidth = $('#selWidth').val();
+        ctx.strokeStyle = color;
+        ctx.lineWidth = width;
         if ($('#selColor').val() === "rgba(255,255,255,0)") {
             console.log($('#selColor').val());
             ctx.globalCompositeOperation = "destination-out";
