@@ -34,13 +34,10 @@ var fitImageOn = function(canvas, context, imageObj) {
 function placeImage() {
     var canvas = document.getElementById('myCanvas');
     var context = canvas.getContext('2d');
+
     var imageObj = new Image();
-
-
-    var fileId = document.getElementById('fileId').innerHTML;
-    var fileExtension = document.getElementById('fileExtension').innerHTML;
-    imageObj.src = '/static/media/' + fileId + '.' + fileExtension;
-
+    var imageBytes = document.getElementById('imageBytes').innerHTML;
+	imageObj.src = 'data:image/png;base64,' + imageBytes;
     imageObj.onload = function() {
     	fitImageOn(canvas, context, imageObj)
     };

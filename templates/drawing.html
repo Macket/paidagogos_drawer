@@ -88,8 +88,6 @@
     </div>
 
     <!-- Context for JS -->
-    <div id="fileId" style="visibility: hidden">{{ file_id }}</div>
-    <div id="fileExtension" style="visibility: hidden">{{ file_extension }}</div>
     <div id="chatId" style="visibility: hidden">{{ chat_id }}</div>
     {% if message_id %}}
         <div id="messageId" style="visibility: hidden">{{ message_id }}</div>
@@ -97,5 +95,6 @@
     {% if submission_id %}
         <div id="submissionId" style="visibility: hidden">{{ submission_id }}</div>
     {% endif %}
+    <div id="imageBytes" style="visibility: hidden; display: none">{{ image_bytes }}</div>
 </body>
 </html>

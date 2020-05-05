@@ -16,32 +16,18 @@ app = Flask(__name__,
             template_folder='templates')
 
 
-@app.route('/')
-def hello_world():
-    return render_template('drawing.html')
-
-
 @app.route('/drawer/', methods=['GET', 'POST'])
 def drawer():
     if request.method == 'GET':
-        # file_id = request.args.get('file_id', None)
+        file_id = request.args.get('file_id', None)
         chat_id = request.args.get('chat_id', None)
         message_id = request.args.get('message_id', None)
         submission_id = request.args.get('submission_id', None)
 
-        # file_info = bot.get_file(file_id)
-        # file_extension = file_info.file_path[file_info.file_path.index('.') + 1:]
-
-        file_id = 'AgACAgIAAxkDAAIXll6wUcs3Rf8_IH3WNNRcJjHnlLcTAAK-rDEbXGiJSTcM3rvygL4Il_1tkS4AAwEAAwIAA3kAA77TAgABGQQ'
-        file_extension = 'jpg'
-        # response = requests.get('https://api.telegram.org/file/bot{0}/{1}'.format(settings.BOT_TOKEN, file_info.file_path))
-        # with open('static/media/{0}.{1}'.format(file_id, file_extension), 'wb') as f:
-        #     f.write(response.content)
-
-        print(file_id, file_extension)
+        file_info = bot.get_file(file_id)
+        response = requests.get('https://api.telegram.org/file/bot{0}/{1}'.format(settings.BOT_TOKEN, file_info.file_path))
         return render_template('drawing.html',
-                               file_id=file_id,
-                               file_extension=file_extension,
+                               image_bytes=base64.b64encode(response.content).decode('utf-8'),
                                chat_id=chat_id,
                                message_id=message_id,
                                submission_id=submission_id)
