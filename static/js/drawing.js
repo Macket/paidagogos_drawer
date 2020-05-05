@@ -87,11 +87,13 @@ function clearArea() {
 }
 
 function putImage() {
-    ctx.font = 'bold 24px Arial';
-    ctx.fillStyle = color;
-    var textX = textarea.offsetLeft - (document.body.clientWidth - 1050) + 2;
-    var textY = textarea.offsetTop + 18;
-    ctx.fillText(textarea.value, textX, textY);
+    if (textarea) {
+        ctx.font = 'bold 24px Arial';
+        ctx.fillStyle = color;
+        var textX = textarea.offsetLeft - (document.body.clientWidth - 1050) + 2;
+        var textY = textarea.offsetTop + 18;
+        ctx.fillText(textarea.value, textX, textY);
+    }
 
     var data = {
         imgBase64: canvas.toDataURL('image/jpeg', 0.5),
