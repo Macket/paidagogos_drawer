@@ -1,4 +1,3 @@
-
 var fitImageOn = function(canvas, context, imageObj) {
 	var imageAspectRatio = imageObj.width / imageObj.height;
 	var canvasAspectRatio = canvas.width / canvas.height;

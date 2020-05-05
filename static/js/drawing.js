@@ -4,6 +4,7 @@ var canvas;
 var ctx;
 var color = 'red';
 var width = 3;
+var textarea = null;
 
 function InitThis() {
     canvas = document.getElementById('myCanvas');
@@ -29,16 +30,36 @@ function InitThis() {
     });
 
     $('.dot').on('click', function(e) {
-        $("button[name=" + color + "]" ).css({'width': String(30 + width) + 'px', 'height': String(30 + width) + 'px'});
-        $("button[name=" + e.target.name + "]" ).css({'width': String(45 + width) + 'px', 'height': String(45 + width) + 'px'});
+        $("button[name=" + color + "]" ).css({'width': '35px', 'height': '35px'});
+        $("button[name=" + e.target.name + "]" ).css({'width': '50px', 'height': '50px'});
         color = e.target.name;
+        if (textarea) {
+            textarea.style.color = color;
+        }
+        $('#drawer-demo').css({'background-color': color});
     });
+
+    var textareaIcon = document.getElementById('textareaIcon');
+    textareaIcon.addEventListener('click', function(e) {
+        if (!textarea) {
+            textarea = document.createElement('textarea');
+            textarea.className = 'textarea';
+            textarea.addEventListener('mousedown', mouseDownOnTextArea);
+            document.getElementById('myCanvasContainer').appendChild(textarea);
+        }
+        textarea.placeholder = 'Напишите здесь';
+        textarea.style.top = '50%';
+        textarea.style.left = '50%';
+        textarea.style.color = color;
+        textarea.style.fontSize = '24px';
+        textarea.style.fontWeight = 'bold';
+        textarea.style.cursor = 'grab';
+    }, false);
 }
 
 function onSlide(value) {
     width = value;
-    $('.dot').css({'width': String(30 + value) + 'px', 'height': String(30 + value) + 'px'});
-    $("button[name=" + color + "]" ).css({'width': String(45 + value) + 'px', 'height': String(45 + value) + 'px'});
+    $('#drawer-demo').css({'height': String(value) + 'px'});
 }
 
 
@@ -48,7 +69,6 @@ function Draw(x, y, isDown) {
         ctx.strokeStyle = color;
         ctx.lineWidth = width;
         if ($('#selColor').val() === "rgba(255,255,255,0)") {
-            console.log($('#selColor').val());
             ctx.globalCompositeOperation = "destination-out";
         }
         ctx.lineJoin = "round";
@@ -67,6 +87,12 @@ function clearArea() {
 }
 
 function putImage() {
+    ctx.font = 'bold 24px Arial';
+    ctx.fillStyle = color;
+    var textX = textarea.offsetLeft - (document.body.clientWidth - 1050) + 2;
+    var textY = textarea.offsetTop + 18;
+    ctx.fillText(textarea.value, textX, textY);
+
     var data = {
         imgBase64: canvas.toDataURL('image/jpeg', 0.5),
         chat_id: document.getElementById('chatId').innerHTML,
@@ -84,4 +110,20 @@ function putImage() {
     }).done(function(o) {
       console.log('saved');
     });
+}
+
+
+function mouseDownOnTextArea(e) {
+    var x = textarea.offsetLeft - e.clientX,
+        y = textarea.offsetTop - e.clientY;
+    function drag(e) {
+        textarea.style.left = e.clientX + x + 'px';
+        textarea.style.top = e.clientY + y + 'px';
+    }
+    function stopDrag() {
+        document.removeEventListener('mousemove', drag);
+        document.removeEventListener('mouseup', stopDrag);
+    }
+    document.addEventListener('mousemove', drag);
+    document.addEventListener('mouseup', stopDrag);
 }

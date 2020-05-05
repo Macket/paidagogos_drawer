@@ -12,20 +12,29 @@
     }
     .dots-container {
         display: flex;
-        flex-direction: column;
         align-items: center;
-        margin-left: 20px;
+        margin: 20px 0;
     }
     #submit {
         width: 250px;
         line-height: 1;
         height: 100px;
-        background-color: lightskyblue;
-        position: fixed;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        background-color: #5a81ea;
         font-size: 40px;
-        right: 30px;
-        bottom: 40px;
         cursor: pointer;
+    }
+    .textarea {
+        position: absolute;
+        background: transparent;
+    }
+    #drawer-demo {
+        background-color: red;
+        height: 3px;
+        width: 50px;
+        margin-left: 20px;
     }
 </style>
 
@@ -43,7 +52,6 @@
     <script>
       $( function() {
           $( "#slider" ).slider({
-              orientation: 'vertical',
               step: 2,
               min: 1,
               max: 11,
@@ -54,11 +62,14 @@
           });
       } );
     </script>
-    <div align="center" style="cursor: url('/static/img/pencil.ico'),auto;">
-        <canvas id="myCanvas" width="1000" height="1000"></canvas>
+    <div id="myCanvasContainer" align="right" style="cursor: url('/static/img/pencil.ico'),auto;">
+        <canvas id="myCanvas" width="1000" height="1000" style="margin-right: 50px"></canvas>
     </div>
-    <div style="position: fixed; top: 20px; left: 20px; display: flex;" >
-        <div id="slider" style="height: 250px; margin-top: 20px"></div>
+    <div style="position: fixed; top: 20px; left: 20px;" >
+        <div style="display: flex; align-items: center; margin: 20px 0">
+            <div id="slider" style="width: 250px; margin-left: 10px"></div>
+            <div id="drawer-demo"></div>
+        </div>
         <div class="dots-container">
             <button class="dot" name="red" style="background-color: red; width: 48px; height: 48px"></button>
             <button class="dot" name="black" style="background-color: black"></button>
@@ -67,9 +78,10 @@
             <button class="dot" name="yellow" style="background-color: yellow"></button>
             <button class="dot" name="grey" style="background-color: grey"></button>
         </div>
-    </div>
-    <div id="createPNGButton" style="position: fixed; top: 20px; right: 20px">
-        <button id="submit" onclick="putImage()">Готово</button>
+        <img id="textareaIcon" src="/static/img/textarea.png" width="75" height="75" style="cursor: pointer">
+        <div style="position: fixed; bottom: 50px">
+            <button id="submit" onclick="putImage()">Готово</button>
+        </div>
     </div>
 
     <!-- Context for JS -->
