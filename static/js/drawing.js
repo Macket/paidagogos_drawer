@@ -72,8 +72,8 @@ function Draw(x, y, isDown) {
             ctx.globalCompositeOperation = "destination-out";
         }
         ctx.lineJoin = "round";
-        ctx.moveTo(lastX, lastY);
-        ctx.lineTo(x, y);
+        ctx.moveTo(lastX + 12, lastY + 40);
+        ctx.lineTo(x + 12, y + 40);
         ctx.closePath();
         ctx.stroke();
     }
