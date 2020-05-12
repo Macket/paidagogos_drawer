@@ -107,6 +107,9 @@ function clearArea() {
 
 function eraseAll() {
     clearArea();
+    ctx.translate(500, 500);
+    ctx.rotate(-rotationCounter * Math.PI / 2);
+    ctx.translate(-500, -500);
     var imageObj = new Image();
     var imageBytes = document.getElementById('imageBytes').innerHTML;
 	imageObj.src = 'data:image/png;base64,' + imageBytes;
@@ -139,8 +142,9 @@ function putImage() {
       url: "/drawer/",
       data: data
     }).done(function(o) {
-      console.log('saved');
+        document.body.innerHTML='<h1 class="end-message">Отлично! Теперь вернитесь в Telegram</h1>'
     });
+
 }
 
 
