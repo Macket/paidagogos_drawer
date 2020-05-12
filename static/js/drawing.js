@@ -66,17 +66,35 @@ function onSlide(value) {
 
 function Draw(x, y, isDown) {
     if (isDown) {
-        ctx.beginPath();
-        ctx.strokeStyle = color;
-        ctx.lineWidth = width;
-        if ($('#selColor').val() === "rgba(255,255,255,0)") {
-            ctx.globalCompositeOperation = "destination-out";
+        if (color === "grey") {
+            ctx.globalCompositeOperation="destination-out";
+            ctx.arc(lastX,lastY,8,0,Math.PI*2,false);
+            ctx.fill();
+        } else {
+            ctx.beginPath();
+            ctx.strokeStyle = color;
+            ctx.lineWidth = width;
+            if ($('#selColor').val() === "rgba(255,255,255,0)") {
+                ctx.globalCompositeOperation = "destination-out";
+            }
+            ctx.lineJoin = "round";
+
+            if (rotationCounter % 4 === 0) {
+                ctx.moveTo(lastX + 8, lastY + 32);
+                ctx.lineTo(x + 8, y + 32);
+            } else if (rotationCounter % 4 === 1) {
+                ctx.moveTo(1000 - (lastY + 32), lastX + 8);
+                ctx.lineTo(1000 - (y + 32), x + 8);
+            } else if (rotationCounter % 4 === 2) {
+                ctx.moveTo(1000 - (lastX + 8), 1000 - (lastY + 32));
+                ctx.lineTo(1000 - (x + 8), 1000 - (y + 32));
+            } else if (rotationCounter % 4 === 3) {
+                ctx.moveTo(lastY + 32, 1000 - (lastX + 8));
+                ctx.lineTo(y + 32, 1000 - (x + 8));
+            }
+            ctx.closePath();
+            ctx.stroke();
         }
-        ctx.lineJoin = "round";
-        ctx.moveTo(lastX + 12, lastY + 40);
-        ctx.lineTo(x + 12, y + 40);
-        ctx.closePath();
-        ctx.stroke();
     }
     lastX = x; lastY = y;
 }
@@ -85,6 +103,16 @@ function clearArea() {
     // Use the identity matrix while clearing the canvas
     ctx.setTransform(1, 0, 0, 1, 0, 0);
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+}
+
+function eraseAll() {
+    clearArea();
+    var imageObj = new Image();
+    var imageBytes = document.getElementById('imageBytes').innerHTML;
+	imageObj.src = 'data:image/png;base64,' + imageBytes;
+    imageObj.onload = function() {
+    	fitImageOn(canvas, ctx, imageObj)
+    };
 }
 
 function putImage() {

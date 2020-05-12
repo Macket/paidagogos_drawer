@@ -26,6 +26,18 @@
         font-size: 40px;
         cursor: pointer;
     }
+    .btn {
+        width: 120px;
+        line-height: 1;
+        height: 40px;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        background-color: deepskyblue;
+        font-size: 24px;
+        cursor: pointer;
+        margin-top: 20px;
+    }
     .textarea {
         position: absolute;
         background: transparent;
@@ -90,6 +102,9 @@
             <button class="dot" name="grey" style="background-color: grey"></button>
         </div>
         <img id="textareaIcon" src="/static/img/textarea.png" width="75" height="75" style="cursor: pointer">
+        <div>
+            <button class="btn" onclick="eraseAll()">Очистить</button>
+        </div>
         <img id="rotateIcon" onclick="rotate()" src="/static/img/rotate.png">
         <div style="position: fixed; bottom: 50px">
             <button id="submit" onclick="putImage()">Готово</button>
