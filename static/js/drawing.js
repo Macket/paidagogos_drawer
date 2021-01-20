@@ -48,7 +48,7 @@ function InitThis() {
             textarea.addEventListener('mousedown', mouseDownOnTextArea);
             document.getElementById('myCanvasContainer').appendChild(textarea);
         }
-        textarea.placeholder = 'Напишите здесь';
+        textarea.placeholder = 'Write here...';
         textarea.style.top = '50%';
         textarea.style.left = '50%';
         textarea.style.color = color;
@@ -142,7 +142,7 @@ function putImage() {
       url: "/drawer/",
       data: data
     }).done(function(o) {
-        document.body.innerHTML='<h1 class="end-message">Отлично! Теперь вернитесь в Telegram</h1>'
+        document.body.innerHTML='<h1 class="end-message">Nice! Go back to Telegram</h1>'
     });
 
 }
